@@ -22,3 +22,12 @@ tasks.test {
 kotlin {
     jvmToolchain(17)
 }
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenKotlin") {
+            artifactId = "caturix"
+            from(components["kotlin"])
+        }
+    }
+}
