@@ -105,7 +105,7 @@ interface CommandArgs {
 	 * @throws MissingArgumentException Thrown if there are no remaining arguments
 	 */
 	@Throws(MissingArgumentException::class)
-	fun peek(): String?
+	fun peek(): String
 
 	/**
 	 * Get the current position of the pointer in the stack of arguments.

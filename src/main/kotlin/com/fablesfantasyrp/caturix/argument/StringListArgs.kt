@@ -42,7 +42,7 @@ open class StringListArgs(arguments: List<String>,
 	}
 
 	@Throws(MissingArgumentException::class)
-	override fun peek(): String? {
+	override fun peek(): String {
 		try {
 			return arguments[position]
 		} catch (ignored: IndexOutOfBoundsException) {
