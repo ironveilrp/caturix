@@ -1,5 +1,7 @@
 plugins {
     kotlin("jvm") version "1.9.21"
+    idea
+    `maven-publish`
 }
 
 group = "com.fablesfantasyrp"
