@@ -52,7 +52,7 @@ class InternalInjector : Injector {
 	}
 
 	@Throws(ArgumentException::class, ProvisionException::class)
-	override fun <T> getInstance(key: Key<T>, arguments: CommandArgs, modifiers: List<Annotation>): T? {
+	override fun <T> getInstance(key: Key<T>, arguments: CommandArgs, modifiers: List<Annotation>): T {
 		val provider = getProvider(key)
 		if (provider != null) {
 			return provider.get(arguments, modifiers)
@@ -62,7 +62,7 @@ class InternalInjector : Injector {
 	}
 
 	@Throws(ArgumentException::class, ProvisionException::class)
-	override fun <T> getInstance(type: Class<T>, arguments: CommandArgs, modifiers: List<Annotation>): T? {
+	override fun <T> getInstance(type: Class<T>, arguments: CommandArgs, modifiers: List<Annotation>): T {
 		return getInstance(Key.get(type), arguments, modifiers)
 	}
 }
