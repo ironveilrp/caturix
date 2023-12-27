@@ -4,7 +4,7 @@ plugins {
     `maven-publish`
 }
 
-group = "com.fablesfantasyrp.caturix"
+group = "com.github.fablesfantasyrp"
 version = "1.0.0"
 
 repositories {
