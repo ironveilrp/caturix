@@ -46,7 +46,7 @@ interface Provider<T> {
 	 * @throws ProvisionException If there is a problem with the provider
 	 */
 	@Throws(ArgumentException::class, ProvisionException::class)
-	fun get(arguments: CommandArgs, modifiers: List<Annotation>): T
+	fun get(arguments: CommandArgs, modifiers: List<Annotation>): T?
 
 	/**
 	 * Get a list of suggestions for the given parameter and user arguments.

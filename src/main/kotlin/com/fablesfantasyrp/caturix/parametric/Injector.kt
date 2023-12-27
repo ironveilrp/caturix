@@ -86,7 +86,7 @@ interface Injector {
 	 * @throws ProvisionException If there is a problem with the provider
 	</T> */
 	@Throws(ArgumentException::class, ProvisionException::class)
-	fun <T> getInstance(key: Key<T>, arguments: CommandArgs, modifiers: List<Annotation>): T
+	fun <T> getInstance(key: Key<T>, arguments: CommandArgs, modifiers: List<Annotation>): T?
 
 	/**
 	 * Attempt to provide a value for the given class using the given
@@ -101,5 +101,5 @@ interface Injector {
 	 * @throws ProvisionException If there is a problem with the provider
 	</T> */
 	@Throws(ArgumentException::class, ProvisionException::class)
-	fun <T> getInstance(type: Class<T>, arguments: CommandArgs, modifiers: List<Annotation>): T
+	fun <T> getInstance(type: Class<T>, arguments: CommandArgs, modifiers: List<Annotation>): T?
 }
