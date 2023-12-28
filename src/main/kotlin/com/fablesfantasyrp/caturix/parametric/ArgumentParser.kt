@@ -76,7 +76,7 @@ class ArgumentParser private constructor(
 	 */
 	@JvmOverloads
 	@Throws(ArgumentException::class, ProvisionException::class)
-	fun parseArguments(
+	suspend fun parseArguments(
 		args: CommandArgs,
 		ignoreUnusedFlags: Boolean = false,
 		unusedFlags: Set<Char> = emptySet()
@@ -115,7 +115,7 @@ class ArgumentParser private constructor(
 	 * @param locals The namespace to send to providers
 	 * @return The list of suggestions
 	 */
-	fun parseSuggestions(arguments: String, locals: Namespace): List<String> {
+	suspend fun parseSuggestions(arguments: String, locals: Namespace): List<String> {
 		val split: Array<String> = CommandContext.split(arguments)
 
 		val argId = split.size - 1
@@ -128,7 +128,7 @@ class ArgumentParser private constructor(
 		return entry.binding.provider.getSuggestions(arg, locals, entry.modifiers)
 	}
 
-	private fun getDefaultValue(entry: ParameterEntry, arguments: CommandArgs): Any? {
+	private suspend fun getDefaultValue(entry: ParameterEntry, arguments: CommandArgs): Any? {
 		val provider: Provider<*> = entry.binding.provider
 
 		val defaultValue: List<String> = entry.parameter.defaultValue

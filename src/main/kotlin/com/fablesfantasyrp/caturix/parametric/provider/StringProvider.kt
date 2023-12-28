@@ -27,13 +27,13 @@ internal open class StringProvider : Provider<String> {
 		get() = false
 
 	@Throws(ArgumentException::class)
-	override fun get(arguments: CommandArgs, modifiers: List<Annotation>): String {
+	override suspend fun get(arguments: CommandArgs, modifiers: List<Annotation>): String {
 		val v = arguments.next()
 		validate(v, modifiers)
 		return v
 	}
 
-	override fun getSuggestions(prefix: String, locals: Namespace, modifiers: List<Annotation>): List<String> {
+	override suspend fun getSuggestions(prefix: String, locals: Namespace, modifiers: List<Annotation>): List<String> {
 		return emptyList()
 	}
 

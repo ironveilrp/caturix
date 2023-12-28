@@ -42,7 +42,7 @@ class EnumProvider<T : Enum<T>>(private val enumClass: Class<T>) : Provider<T> {
 		get() = false
 
 	@Throws(ArgumentException::class, ProvisionException::class)
-	override fun get(arguments: CommandArgs, modifiers: List<Annotation>): T {
+	override suspend fun get(arguments: CommandArgs, modifiers: List<Annotation>): T {
 		val name: String = arguments.next()
 		val test = simplify(name)
 
@@ -55,7 +55,7 @@ class EnumProvider<T : Enum<T>>(private val enumClass: Class<T>) : Provider<T> {
 		throw ArgumentParseException("No matching value found in the '" + enumClass.simpleName + "' list.")
 	}
 
-	override fun getSuggestions(prefix: String, locals: Namespace, modifiers: List<Annotation>): List<String> {
+	override suspend fun getSuggestions(prefix: String, locals: Namespace, modifiers: List<Annotation>): List<String> {
 		val suggestions: MutableList<String> = Lists.newArrayList()
 		val test = simplify(prefix)
 

@@ -24,7 +24,7 @@ import com.fablesfantasyrp.caturix.argument.CommandArgs
 internal class FloatProvider : NumberProvider<Float>() {
 
 	@Throws(ArgumentException::class)
-	override fun get(arguments: CommandArgs, modifiers: List<Annotation>): Float {
+	override suspend fun get(arguments: CommandArgs, modifiers: List<Annotation>): Float {
 		val v: Double = parseNumericInput(arguments.next())
 		validate(v, modifiers)
 		return v.toFloat()

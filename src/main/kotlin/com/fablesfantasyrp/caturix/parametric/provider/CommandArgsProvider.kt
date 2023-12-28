@@ -30,7 +30,7 @@ internal class CommandArgsProvider : Provider<CommandArgs> {
 		get() = true
 
 	@Throws(ArgumentException::class, ProvisionException::class)
-	override fun get(arguments: CommandArgs, modifiers: List<Annotation>): CommandArgs {
+	override suspend fun get(arguments: CommandArgs, modifiers: List<Annotation>): CommandArgs {
 		val commandArgs = arguments.namespace.get(CommandArgs::class.java)
 		if (commandArgs != null) {
 			commandArgs.markConsumed()
@@ -40,7 +40,7 @@ internal class CommandArgsProvider : Provider<CommandArgs> {
 		}
 	}
 
-	override fun getSuggestions(prefix: String, locals: Namespace, modifiers: List<Annotation>): List<String> {
+	override suspend fun getSuggestions(prefix: String, locals: Namespace, modifiers: List<Annotation>): List<String> {
 		return emptyList()
 	}
 }

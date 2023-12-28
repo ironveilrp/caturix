@@ -26,11 +26,11 @@ internal class BooleanProvider : Provider<Boolean> {
 		get() = false
 
 	@Throws(ArgumentException::class)
-	override fun get(arguments: CommandArgs, modifiers: List<Annotation>): Boolean {
+	override suspend fun get(arguments: CommandArgs, modifiers: List<Annotation>): Boolean {
 		return arguments.nextBoolean()
 	}
 
-	override fun getSuggestions(prefix: String, locals: Namespace, modifiers: List<Annotation>): List<String> {
+	override suspend fun getSuggestions(prefix: String, locals: Namespace, modifiers: List<Annotation>): List<String> {
 		return emptyList()
 	}
 

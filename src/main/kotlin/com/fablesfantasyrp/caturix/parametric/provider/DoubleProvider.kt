@@ -24,7 +24,7 @@ import com.fablesfantasyrp.caturix.argument.CommandArgs
 internal class DoubleProvider : NumberProvider<Double>() {
 
 	@Throws(ArgumentException::class)
-	override fun get(arguments: CommandArgs, modifiers: List<Annotation>): Double {
+	override suspend fun get(arguments: CommandArgs, modifiers: List<Annotation>): Double {
 		val v: Double = parseNumericInput(arguments.next())
 		validate(v, modifiers)
 		return v

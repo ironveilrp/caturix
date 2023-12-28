@@ -26,7 +26,7 @@ internal abstract class NumberProvider<T : Number> : Provider<T> {
 	override val isProvided: Boolean
 		get() = false
 
-	override fun getSuggestions(prefix: String, locals: Namespace, modifiers: List<Annotation>): List<String> {
+	override suspend fun getSuggestions(prefix: String, locals: Namespace, modifiers: List<Annotation>): List<String> {
 		return emptyList()
 	}
 

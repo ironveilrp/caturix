@@ -24,7 +24,7 @@ import com.fablesfantasyrp.caturix.argument.MissingArgumentException
 
 internal class TextProvider : StringProvider() {
 	@Throws(ArgumentException::class)
-	override fun get(arguments: CommandArgs, modifiers: List<Annotation>): String {
+	override suspend fun get(arguments: CommandArgs, modifiers: List<Annotation>): String {
 		val builder = StringBuilder()
 		var first = true
 		while (true) {

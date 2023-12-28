@@ -25,11 +25,11 @@ internal class ConstantProvider<T>(private val value: T) : Provider<T> {
 	override val isProvided: Boolean
 		get() = true
 
-	override fun get(arguments: CommandArgs, modifiers: List<Annotation>): T {
+	override suspend fun get(arguments: CommandArgs, modifiers: List<Annotation>): T {
 		return value
 	}
 
-	override fun getSuggestions(prefix: String, locals: Namespace, modifiers: List<Annotation>): List<String> {
+	override suspend fun getSuggestions(prefix: String, locals: Namespace, modifiers: List<Annotation>): List<String> {
 		return emptyList()
 	}
 }
