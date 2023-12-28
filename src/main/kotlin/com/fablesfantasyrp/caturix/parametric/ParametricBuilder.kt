@@ -18,7 +18,6 @@
  */
 package com.fablesfantasyrp.caturix.parametric
 
-import com.google.common.collect.Lists
 import com.fablesfantasyrp.caturix.Command
 import com.fablesfantasyrp.caturix.CommandCallable
 import com.fablesfantasyrp.caturix.completion.CommandCompleter
@@ -51,18 +50,6 @@ class ParametricBuilder(val injector: Injector) {
 	var defaultCompleter: CommandCompleter = NullCompleter()
 
 	/**
-	 * Get the executor service used to invoke the actual command.
-	 *
-	 *
-	 * Bindings will still be resolved in the thread in which the
-	 * callable was called.
-	 *
-	 * @return The command executor
-	 */
-	var commandExecutor: CommandExecutor = CommandExecutorWrapper(MoreExecutors.newDirectExecutorService())
-		private set
-
-	/**
 	 * Attach an invocation listener.
 	 *
 	 *
@@ -90,32 +77,6 @@ class ParametricBuilder(val injector: Injector) {
 	 */
 	fun addExceptionConverter(converter: ExceptionConverter) {
 		exceptionConverters.add(converter)
-	}
-
-	/**
-	 * Set the executor service used to invoke the actual command.
-	 *
-	 *
-	 * Bindings will still be resolved in the thread in which the
-	 * callable was called.
-	 *
-	 * @param commandExecutor The executor
-	 */
-	fun setCommandExecutor(commandExecutor: ExecutorService) {
-		setCommandExecutor(CommandExecutorWrapper(commandExecutor))
-	}
-
-	/**
-	 * Set the executor service used to invoke the actual command.
-	 *
-	 *
-	 * Bindings will still be resolved in the thread in which the
-	 * callable was called.
-	 * a
-	 * @param commandExecutor The executor
-	 */
-	fun setCommandExecutor(commandExecutor: CommandExecutor) {
-		this.commandExecutor = commandExecutor
 	}
 
 	/**
@@ -149,7 +110,7 @@ class ParametricBuilder(val injector: Injector) {
 	 */
 	@Throws(ParametricException::class)
 	fun build(`object`: Any, method: Method): CommandCallable {
-		return MethodCallable.Companion.create(this, `object`, method)
+		return MethodCallable.create(this, `object`, method)
 	}
 
 	/**

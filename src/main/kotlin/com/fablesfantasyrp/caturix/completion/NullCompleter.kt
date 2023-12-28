@@ -26,7 +26,7 @@ import com.fablesfantasyrp.caturix.argument.*
  */
 class NullCompleter : CommandCompleter {
 	@Throws(CommandException::class)
-	override fun getSuggestions(arguments: String, locals: Namespace): List<String> {
+	override suspend fun getSuggestions(arguments: String, locals: Namespace): List<String> {
 		return emptyList()
 	}
 }

@@ -22,7 +22,7 @@ import com.fablesfantasyrp.caturix.internal.parametric.InternalInjector
 import com.fablesfantasyrp.caturix.parametric.Injector
 
 /**
- * The starting point to using parts of Intake.
+ * The starting point to using parts of Caturix.
  */
 object Caturix {
 	/**

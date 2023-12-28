@@ -95,7 +95,7 @@ class SimpleDispatcher : Dispatcher {
 	}
 
 	@Throws(CommandException::class, InvocationCommandException::class, AuthorizationException::class)
-	override fun call(arguments: String, namespace: Namespace, parentCommands: List<String>): Boolean {
+	override suspend fun call(arguments: String, namespace: Namespace, parentCommands: List<String>): Boolean {
 		// We have permission for this command if we have permissions for subcommands
 		if (!testPermission(namespace)) {
 			throw AuthorizationException()
@@ -133,7 +133,7 @@ class SimpleDispatcher : Dispatcher {
 	}
 
 	@Throws(CommandException::class)
-	override fun getSuggestions(arguments: String, locals: Namespace): List<String> {
+	override suspend fun getSuggestions(arguments: String, locals: Namespace): List<String> {
 		val split: Array<String> = CommandContext.split(arguments)
 
 		if (split.size <= 1) {

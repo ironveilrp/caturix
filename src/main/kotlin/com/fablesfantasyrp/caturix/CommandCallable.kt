@@ -60,7 +60,7 @@ interface CommandCallable : CommandCompleter {
 	 * @throws AuthorizationException If there is a authorization error
 	 */
 	@Throws(CommandException::class, InvocationCommandException::class, AuthorizationException::class)
-	fun call(arguments: String, namespace: Namespace, parentCommands: List<String>): Boolean
+	suspend fun call(arguments: String, namespace: Namespace, parentCommands: List<String>): Boolean
 
 	/**
 	 * Get the object describing the command.

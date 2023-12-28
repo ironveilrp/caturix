@@ -60,15 +60,15 @@ abstract class AbstractParametricCallable protected constructor(
 	protected var unusedFlags = emptySet<Char>()
 
 	@Throws(CommandException::class, InvocationCommandException::class, AuthorizationException::class)
-	override fun call(arguments: String, namespace: Namespace, parentCommands: List<String>): Boolean {
+	override suspend fun call(arguments: String, namespace: Namespace, parentCommands: List<String>): Boolean {
 		// Test permission
 		if (!testPermission(namespace)) {
 			throw AuthorizationException()
 		}
 
 		val calledCommand = if (parentCommands.isNotEmpty()) parentCommands[parentCommands.size - 1] else "_"
-		val split: Array<String> = CommandContext.Companion.split("$calledCommand $arguments")
-		val context: CommandContext = CommandContext(split, parser.valueFlags, false, namespace)
+		val split: Array<String> = CommandContext.split("$calledCommand $arguments")
+		val context = CommandContext(split, parser.valueFlags, false, namespace)
 		val commandArgs: CommandArgs = Arguments.viewOf(context)
 		val handlers: MutableList<InvokeHandler> = ArrayList()
 
@@ -113,10 +113,7 @@ abstract class AbstractParametricCallable protected constructor(
 
 			// invoke
 			try {
-				builder.commandExecutor.submit<Any?>({
-					this@AbstractParametricCallable.call(args)
-					null
-				}, commandArgs).get()
+				this@AbstractParametricCallable.call(args)
 			} catch (e: ExecutionException) {
 				throw e.cause!!
 			}
@@ -183,10 +180,10 @@ abstract class AbstractParametricCallable protected constructor(
 	 * @throws Exception on any exception
 	 */
 	@Throws(Exception::class)
-	protected abstract fun call(args: Array<Any?>)
+	protected abstract suspend fun call(args: Array<Any?>)
 
 	@Throws(CommandException::class)
-	override fun getSuggestions(arguments: String, locals: Namespace): List<String> {
+	override suspend fun getSuggestions(arguments: String, locals: Namespace): List<String> {
 		return parser.parseSuggestions(arguments, locals)
 	}
 }

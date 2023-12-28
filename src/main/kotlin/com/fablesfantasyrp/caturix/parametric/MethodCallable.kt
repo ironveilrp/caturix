@@ -24,6 +24,8 @@ import com.fablesfantasyrp.caturix.argument.Namespace
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 import java.util.*
+import kotlin.reflect.full.callSuspend
+import kotlin.reflect.jvm.kotlinFunction
 
 /**
  * The implementation of a [CommandCallable] for the
@@ -38,9 +40,14 @@ internal class MethodCallable private constructor(
 	private val permissions: List<String>?
 ) : AbstractParametricCallable(builder, parser) {
 	@Throws(Exception::class)
-	override fun call(args: Array<Any?>) {
+	override suspend fun call(args: Array<Any?>) {
 		try {
-			method.invoke(`object`, *args)
+			val kotlinFunction = method.kotlinFunction
+			if (kotlinFunction != null) {
+				kotlinFunction.callSuspend(`object`, *args)
+			} else {
+				method.invoke(`object`, *args)
+			}
 		} catch (e: IllegalAccessException) {
 			throw InvocationCommandException("Could not invoke method '$method'", e)
 		} catch (e: InvocationTargetException) {
@@ -81,7 +88,10 @@ internal class MethodCallable private constructor(
 			val types = method.genericParameterTypes
 
 			val parserBuilder = ArgumentParser.Builder(builder.injector)
-			for (i in types.indices) {
+
+			// When the method is a suspend fun, the last parameter is a Continuation and should be ignored.
+			val lastIndex = if (method.kotlinFunction?.isSuspend == true) types.size - 2 else types.size - 1
+			for (i in 0..lastIndex) {
 				parserBuilder.addParameter(types[i], listOf(*annotations[i]))
 			}
 			val parser = parserBuilder.build()
@@ -95,7 +105,7 @@ internal class MethodCallable private constructor(
 			val permHint = method.getAnnotation(Require::class.java)
 			var permissions: List<String>? = null
 			if (permHint != null) {
-				descBuilder.setPermissions(Arrays.asList(*permHint.value))
+				descBuilder.setPermissions(listOf(*permHint.value))
 				permissions = listOf(*permHint.value)
 			}
 

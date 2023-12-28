@@ -34,5 +34,5 @@ interface CommandCompleter {
 	 * @throws CommandException thrown if there was a parsing error
 	 */
 	@Throws(CommandException::class)
-	fun getSuggestions(arguments: String, locals: Namespace): List<String>
+	suspend fun getSuggestions(arguments: String, locals: Namespace): List<String>
 }
