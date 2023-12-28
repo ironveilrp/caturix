@@ -69,7 +69,7 @@ class CommandGraph {
 		return this
 	}
 
-	val dispatcher: Dispatcher?
+	val dispatcher: Dispatcher
 		/**
 		 * Get the root dispatcher.
 		 *
