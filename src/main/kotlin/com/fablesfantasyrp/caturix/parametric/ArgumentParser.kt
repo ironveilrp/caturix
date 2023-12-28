@@ -81,7 +81,7 @@ class ArgumentParser private constructor(
 		ignoreUnusedFlags: Boolean = false,
 		unusedFlags: Set<Char> = emptySet()
 	): Array<Any?> {
-		val parsedObjects = ArrayList<Any?>(parameters.size)
+		val parsedObjects = arrayOfNulls<Any?>(parameters.size)
 
 		var i = -1 // Simulate the old for loop TODO: Maybe pretty this up?
 		for (entry in parameters.values) {
@@ -105,7 +105,7 @@ class ArgumentParser private constructor(
 		// Check for unused arguments
 		checkUnconsumed(args, ignoreUnusedFlags, unusedFlags)
 
-		return parsedObjects.toArray()
+		return parsedObjects
 	}
 
 	/**
@@ -202,7 +202,7 @@ class ArgumentParser private constructor(
 			}
 		}
 
-		if (!unconsumedArguments.isEmpty()) {
+		if (unconsumedArguments.isNotEmpty()) {
 			throw UnusedArgumentException(Joiner.on(" ").join(unconsumedArguments))
 		}
 	}
@@ -235,7 +235,7 @@ class ArgumentParser private constructor(
 			val modifiers: MutableList<Annotation> = ArrayList()
 
 			for (annotation in annotations) {
-				if (annotation.javaClass.getAnnotation(Classifier::class.java) != null) {
+				if (annotation.annotationClass.java.getAnnotation(Classifier::class.java) != null) {
 					classifier = annotation
 				} else {
 					modifiers.add(annotation)
@@ -282,7 +282,7 @@ class ArgumentParser private constructor(
 			builder.setDefaultValue(defaultValue)
 			val parameter = builder.build()
 
-			val key: Key<*> = Key.get<Any>(type, classifier?.javaClass)
+			val key: Key<*> = Key.get<Any>(type, classifier?.annotationClass?.java)
 			val binding = injector.getBinding(key)
 				?: throw IllegalParameterException("Can't finding a binding for the parameter type '$type'")
 

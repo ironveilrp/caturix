@@ -70,7 +70,7 @@ abstract class OptionType private constructor() {
 	private class OptionalPositional : OptionType() {
 		override val flag: Char? = null
 		override val isValueFlag: Boolean = false
-		override val isOptional: Boolean = false
+		override val isOptional: Boolean = true
 
 		override fun transform(arguments: CommandArgs): CommandArgs {
 			return arguments
