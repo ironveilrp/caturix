@@ -27,7 +27,7 @@ internal class ShortProvider : NumberProvider<Short>() {
 	override suspend fun get(arguments: CommandArgs, modifiers: List<Annotation>): Short {
 		val v: Double = parseNumericInput(arguments.next())
 		val shortValue = v.toInt().toShort()
-		validate(shortValue.toInt(), modifiers)
+		validate(shortValue.toLong(), modifiers)
 		return shortValue
 	}
 

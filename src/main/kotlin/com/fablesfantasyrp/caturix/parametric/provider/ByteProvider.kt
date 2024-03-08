@@ -21,17 +21,17 @@ package com.fablesfantasyrp.caturix.parametric.provider
 import com.fablesfantasyrp.caturix.argument.ArgumentException
 import com.fablesfantasyrp.caturix.argument.CommandArgs
 
-internal class IntegerProvider : NumberProvider<Int>() {
+internal class ByteProvider : NumberProvider<Byte>() {
 
 	@Throws(ArgumentException::class)
-	override suspend fun get(arguments: CommandArgs, modifiers: List<Annotation>): Int {
+	override suspend fun get(arguments: CommandArgs, modifiers: List<Annotation>): Byte {
 		val v: Double = parseNumericInput(arguments.next())
-		val intValue = v.toInt()
-		validate(intValue.toLong(), modifiers)
-		return intValue
+		val shortValue = v.toInt().toByte()
+		validate(shortValue.toLong(), modifiers)
+		return shortValue
 	}
 
 	companion object {
-		val INSTANCE: IntegerProvider = IntegerProvider()
+		val INSTANCE: ByteProvider = ByteProvider()
 	}
 }

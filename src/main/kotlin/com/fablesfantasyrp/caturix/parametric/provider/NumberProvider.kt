@@ -42,7 +42,11 @@ internal abstract class NumberProvider<T : Number> : Provider<T> {
 		@Throws(ArgumentParseException::class)
 		protected fun parseNumericInput(input: String): Double {
 			try {
-				return input.toDouble()
+				return when {
+					input.startsWith("0b") -> input.toLong(2).toDouble()
+					input.startsWith("0x") -> input.toLong(16).toDouble()
+					else -> input.toDouble()
+				}
 			} catch (ignored: NumberFormatException) {
 				throw ArgumentParseException(String.format("Expected '%s' to be a number", input))
 			}
@@ -91,7 +95,7 @@ internal abstract class NumberProvider<T : Number> : Provider<T> {
 		 */
 		@JvmStatic
 		@Throws(ArgumentParseException::class)
-		protected fun validate(number: Int, modifiers: List<Annotation?>) {
+		protected fun validate(number: Long, modifiers: List<Annotation?>) {
 			for (modifier in modifiers) {
 				if (modifier is Range) {
 					val range = modifier
