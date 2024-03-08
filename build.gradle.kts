@@ -4,7 +4,7 @@ plugins {
     `maven-publish`
 }
 
-group = "com.github.fablesfantasyrp"
+group = "com.github.ironveilrp"
 version = "1.0.0"
 
 repositories {
